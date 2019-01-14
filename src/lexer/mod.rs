@@ -1,14 +1,14 @@
 use crate::token::Token;
 
-pub struct Lexer<'a> {
-    input: &'a str,
+pub struct Lexer {
+    input: String,
     position: usize,
     read_position: usize,
     ch: u8
 }
 
-impl<'a> Lexer<'a> {
-    pub fn new(input: &'a str) -> Self {
+impl Lexer {
+    pub fn new(input: String) -> Self {
         let mut lexer = Lexer {
             input,
             position: 0,
@@ -172,7 +172,7 @@ let result = add(five, ten);
             Token::Eof,
         ];
 
-        let mut lexer = Lexer::new(input);
+        let mut lexer = Lexer::new(input.to_string());
 
         for expect in tests {
             let token = lexer.next_token();
