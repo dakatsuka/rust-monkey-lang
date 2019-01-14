@@ -23,8 +23,6 @@ impl<'a> Lexer<'a> {
     pub fn next_token(&mut self) -> Token {
         self.skip_whitespace();
 
-        println!("{:?}", self.ch as char);
-
         let token = match self.ch {
             b'=' => Token::Assign,
             b';' => Token::Semicolon,
@@ -32,6 +30,12 @@ impl<'a> Lexer<'a> {
             b')' => Token::Rparen,
             b',' => Token::Comma,
             b'+' => Token::Plus,
+            b'-' => Token::Minus,
+            b'!' => Token::Bang,
+            b'*' => Token::Asterisk,
+            b'/' => Token::Slash,
+            b'<' => Token::Lt,
+            b'>' => Token::Gt,
             b'{' => Token::Lbrace,
             b'}' => Token::Rbrace,
             b'a'...b'z' | b'A'...b'Z' | b'_' => return self.read_identifier(),
@@ -112,6 +116,8 @@ let add = fn(x, y) {
 };
 
 let result = add(five, ten);
+!-/*5;
+5 < 10 > 5;
 "#;
 
         let tests = vec![
@@ -150,6 +156,18 @@ let result = add(five, ten);
             Token::Comma,
             Token::Ident(String::from("ten")),
             Token::Rparen,
+            Token::Semicolon,
+            Token::Bang,
+            Token::Minus,
+            Token::Slash,
+            Token::Asterisk,
+            Token::Number(5),
+            Token::Semicolon,
+            Token::Number(5),
+            Token::Lt,
+            Token::Number(10),
+            Token::Gt,
+            Token::Number(5),
             Token::Semicolon,
             Token::Eof,
         ];
