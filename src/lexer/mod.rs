@@ -80,9 +80,14 @@ impl Lexer {
         let literal = &self.input[start_position..self.position];
 
         match literal {
-            "fn"  => Token::Function,
-            "let" => Token::Let,
-            _     => Token::Ident(String::from(literal)),
+            "fn"     => Token::Function,
+            "let"    => Token::Let,
+            "if"     => Token::If,
+            "else"   => Token::Else,
+            "true"   => Token::True,
+            "false"  => Token::False,
+            "return" => Token::Return,
+            _        => Token::Ident(String::from(literal)),
         }
     }
 
@@ -118,6 +123,12 @@ let add = fn(x, y) {
 let result = add(five, ten);
 !-/*5;
 5 < 10 > 5;
+
+if (5 < 10) {
+    return true;
+} else {
+    return false;
+}
 "#;
 
         let tests = vec![
@@ -169,6 +180,23 @@ let result = add(five, ten);
             Token::Gt,
             Token::Number(5),
             Token::Semicolon,
+            Token::If,
+            Token::Lparen,
+            Token::Number(5),
+            Token::Lt,
+            Token::Number(10),
+            Token::Rparen,
+            Token::Lbrace,
+            Token::Return,
+            Token::True,
+            Token::Semicolon,
+            Token::Rbrace,
+            Token::Else,
+            Token::Lbrace,
+            Token::Return,
+            Token::False,
+            Token::Semicolon,
+            Token::Rbrace,
             Token::Eof,
         ];
 
