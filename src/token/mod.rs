@@ -18,6 +18,8 @@ pub enum Token {
     Slash,
     Lt,
     Gt,
+    Equal,
+    NotEqual,
 
     // Delimiters
     Comma,
