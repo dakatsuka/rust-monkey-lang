@@ -4,4 +4,9 @@ version = "0.1.0"
 authors = ["Dai Akatsuka <d.akatsuka@gmail.com>"]
 edition = "2018"
 
+[[bin]]
+name = "monkey-repl"
+path = "repl/main.rs"
+
 [dependencies]
+rustyline = "3.0.0"
